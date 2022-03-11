@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>AirBnB clone</title>
+    <link rel="icon" href="../static/images/icon.png">
+    <link rel="stylesheet" href="../static/styles/common.css">
+    <link rel="stylesheet" href="../static/styles/filters.css">
+    <link rel="stylesheet" href="../static/styles/footer.css">
+    <link rel="stylesheet" href="../static/styles/header.css">
+    <link rel="stylesheet" href="../static/styles/places.css">
+
+</head>
+
+<body>
+
+    <header>
+
+        <img src="../static/images/logo.png" alt="AirBnB Logo">
+
+    </header>
+
+    <div class="container">
+
+        <section class="filters">
+
+            <button type="button">Search</button>
+
+            <div class="locations">
+
+                <h3>States</h3>
+                <h4>&nbsp;</h4>
+
+                <ul class="popover">
+                    {% for state_key, state_value in states | dictsort %}
+                    <h2>{{ state_value["name"] }}:</h2>
+                    {% for city_key, city_value in cities | dictsort if city_value.state_id == state_value.id %}
+                    <ul>
+                        <li>{{ city_value["name"] }}</li>
+                    </ul>
+                    {% endfor %}
+                    </li>
+                    {% endfor %}
+                </ul>
+
+            </div>
+
+            <div class="amenities">
+
+                <h3>Amenities</h3>
+                <h4>&nbsp;</h4>
+
+                <ul class="popover">
+                    {% for amenity_key, amenity_value in amenities | dictsort %}
+                    <li>{{ amenity_value["name"] }}</li>
+                    {% endfor %}
+                </ul>
+
+            </div>
+
+        </section>
+
+        <h1>Places</h1>
+        <section class="places">
+
+            {% for place_key, place_value in places | dictsort %}
+            <article>
+
+                <h2 class="title">{{ place_value["name"] }}</h2>
+
+                <div class="price_by_night">
+                    <h3>${{ place_value["price_by_night"] }}</h3>
+                </div>
+
+                <div class="information">
+
+                    <div class="max_guest">
+                        <img src="../static/images/icon_group.png" alt="group icon">
+                        <p>{{ place_value["max_guest"] }} guests</p>
+                    </div>
+                    <!--
+						-->
+                    <div class="number_rooms">
+                        <img src="../static/images/icon_bed.png" alt="bed icon">
+                        <p>{{ place_value["number_rooms"] }} Bedrooms</p>
+                    </div>
+                    <!--
+						-->
+                    <div class="number_bathrooms">
+                        <img src="../static/images/icon_bath.png" alt="bath icon">
+                        <p>{{ place_value["number_bathrooms"] }} Bathrooms</p>
+                    </div>
+
+                </div>
+
+                <div class="user">
+                    {% for user_key, user_value in users | dictsort if user_value.id == place_value.user_id %}
+                    <p><b>Owner: </b>{{ user_value["first_name"] }} {{ user_value["last_name"] }}</p>
+                    {% endfor %}
+                </div>
+
+                <div class="description">
+                    <p>{{ place_value["description"]|safe }}</p>
+                </div>
+
+                <div class="amenities">
+                    <h2>Amenities</h2>
+                    <ul>
+                        {% for amenity in place_value.amenities %}
+                        <li>{{ amenity["name"] }}</li>
+                        {% endfor %}
+                        <!-- <li><img src="../static/images/icon_tv.png">TV</li>
+                        <li><img src="../static/images/icon_wifi.png">WiFi</li>
+                        <li><img src="../static/images/icon_pets.png">Pets Frendly</li> -->
+                    </ul>
+                </div>
+
+                <div class="reviews">
+                    <h2>Reviews</h2>
+                    <ul>
+                        {% for user_key, user_value in users | dictsort if user_value.id  %}
+                        <li>
+                            <h3>{{ review["user_id"] }}</h3>
+                            <p>{{ review["text"] }}</p>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+
+            </article>
+            {% endfor %}
+            <!--
+				-->
+
+        </section>
+
+    </div>
+
+    <footer>
+
+        <p>Holberton School</p>
+
+    </footer>
+
+</body>
+
+</html>

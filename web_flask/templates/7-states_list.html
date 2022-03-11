@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HBNB</title>
+</head>
+<body>
+    {% if states %}
+        <h1>States</h1>
+        <ul>
+        {% for state_key, state_value in states | dictsort %}
+            <li>{{ state_value["id"] }}: <B>{{ state_value["name"] }}</B>
+            </li>
+        {% endfor %}
+        </ul>
+    {% endif %}
+
+    {% if state %}
+        <h1>State: {{ state["name"] }}</h1>
+        <h3>Citites:</h3>
+        <ul>
+            {% for city in cities %}
+                <li>{{ city["id"] }}: <B>{{ city["name"] }}</B></li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+</body>
+</html>
