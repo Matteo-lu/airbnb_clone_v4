@@ -7,6 +7,7 @@ from models.city import City
 from models.amenity import Amenity
 from models.place import Place
 from models.user import User
+from models.review import Review
 import models
 
 
@@ -60,7 +61,6 @@ def hbnb():
     amenities = storage.all(Amenity)
     places = storage.all(Place)
     users = storage.all(User)
-    print(places)
     if models.storage_t == "db":
         cities = storage.all(City)
     else:

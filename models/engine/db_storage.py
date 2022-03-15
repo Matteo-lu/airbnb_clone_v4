@@ -77,7 +77,7 @@ class DBStorage:
         self.__session.remove()
 
     def get(self, cls, id):
-        """method to retrieve one objec that"""
+        """method to retrieve one objec that match id"""
         try:
             new_dict = self.all()
             return (new_dict[cls.__name__ + '.' + id])
