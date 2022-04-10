@@ -26,7 +26,7 @@ def all_places(city_id):
     return (jsonify(obj_dict)), 200
 
 @app_views.route(
-                '/places/<place_id>,
+                '/places/<place_id>',
                 strict_slashes=False
                 )
 def place_by_id(place_id):
@@ -58,7 +58,7 @@ def delete_place_by_id(place_id):
 def create_place(city_id):
     """view to create a place"""
     city = storage.get(City, city_id)
-    if state is None:
+    if city is None:
         abort(404)
     data = request.get_json()
     if data:

@@ -7,10 +7,10 @@ from flask import abort
 from flask import request
 
 from models import storage
-from models.place import Place
+from models.user import User
 
 @app_views.route('/users', strict_slashes=False)
-def all_place():
+def all_users():
     """view to return all places"""
     obj_dict = storage.all(User)
     users = []
@@ -19,7 +19,7 @@ def all_place():
     return (jsonify(users)), 200
 
 @app_views.route('/users/<user_id>', strict_slashes=False)
-def place_by_id(user_id):
+def user_by_id(user_id):
     """view to return user by id"""
     user = storage.get(User, user_id)
     if user is None:
@@ -31,7 +31,7 @@ def place_by_id(user_id):
                 strict_slashes=False,
                 methods=['DELETE']
                 )
-def delete_place_by_id(user_id):
+def user_place_by_id(user_id):
     """view to delete user by id"""
     user = storage.get(User, user_id)
     if user is None:
@@ -45,7 +45,7 @@ def delete_place_by_id(user_id):
                 strict_slashes=False,
                 methods=['POST']
                 )
-def create_place():
+def create_user():
     """view to create a user"""
     data = request.get_json()
     if data:
@@ -63,7 +63,7 @@ def create_place():
                 strict_slashes=False,
                 methods=['PUT']
                 )
-def update_place(user_id):
+def update_user(user_id):
     """view to user a user"""
     user = storage.get(User, user_id)
     if user is None:

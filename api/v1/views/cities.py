@@ -10,11 +10,34 @@ from models import storage
 from models.city import City
 from models.state import State
 
+@app_views.route('/cities', strict_slashes=False)
+def all_cities():
+    """view to return all states"""
+    obj_dict = storage.all(State)
+    cities = []
+    for value in obj_dict.values():
+        cities.append(value.to_dict())
+    return (jsonify(cities)), 200
+
+@app_views.route('/states/cities', strict_slashes=False)
+def all_cities_by_states():
+    """view to return all states"""
+    state_dict = storage.all(State)
+    city_dict = storage.all(City)
+    obj_dict = {}
+    for state in state_dict.values():
+        cities = []
+        for city in city_dict.values():
+            if city.state_id == state.id:
+                cities.append(city.to_dict())
+        obj_dict[state.name] = cities
+    return (jsonify(obj_dict)), 200
+
 @app_views.route(
                 '/states/<state_id>/cities',
                 strict_slashes=False
                 )
-def all_cities(state_id):
+def all_cities_by_states_id(state_id):
     """view to return all cities"""
     state = storage.get(State, state_id)
     if state is None:
